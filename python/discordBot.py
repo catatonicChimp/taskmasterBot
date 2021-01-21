@@ -35,16 +35,18 @@ bot = commands.Bot(command_prefix="?", description="TaskmasterBot")
 
 @bot.command()
 @commands.has_permissions(administrator=True)
-async def sendSMS(ctx, message):
+async def sendSMS(ctx, *message: str):
 
     """
     SendSMS to predefined person
     :param ctx:
     :return:
     """
+    message = (" ".join(message))
     result = m.sendSMS(message)
     if result == True:
         await ctx.send("Message Sent")
+        await ctx.send(message)
     else:
         await ctx.send("Message Too Long Try Again, Max 160 characters")
 
